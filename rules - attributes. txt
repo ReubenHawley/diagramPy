@@ -1,0 +1,8 @@
+rules                                                   Pattern
+starts with  space \s                                   \s(\w+)
+alphanumeric word(varying length) \w+                   \s(\w+)
+specific character =                                    \s(\w+)=
+specific character "                                    \s(\w+)=\"
+alphanumeric word and special character [a-zA-Z;-=_.]
+specific character "
+

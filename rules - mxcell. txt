@@ -1,0 +1,4 @@
+rules                                                   Pattern
+starts with  <mxCell                                    (<mxCell)
+any character                                           \s(\w+)
+ends with </mxCell>                                     \s(\w+)=
