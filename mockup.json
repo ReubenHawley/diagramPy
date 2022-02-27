@@ -5,22 +5,22 @@
       "attributes": [
         {
           "AttributeName": "name",
-          "datatype": "String",
+          "datatype": "string",
           "Access": "private"
         },
         {
           "AttributeName": "lastname",
-          "datatype": "String",
+          "datatype": "string",
           "Access": "protected"
         },
         {
           "AttributeName": "sex",
-          "datatype": "String",
+          "datatype": "double",
           "Access": "protected"
         },
         {
           "AttributeName": "emailAddress",
-          "datatype": "String",
+          "datatype": "string",
           "Access": "private"
         },
         {
@@ -32,37 +32,43 @@
       "methods": [
         {
           "methodName": "getName",
-          "datatype": "String",
-          "Access": "public"
+          "datatype": "void",
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "getLastName",
-          "datatype": "String",
-          "Access": "protected"
+          "datatype": "float",
+          "Access": "protected",
+          "static": "false"
         },
         {
           "methodName": "getSex",
-          "datatype": "String",
-          "Access": "private"
+          "datatype": "string",
+          "Access": "private",
+          "static": "false"
         },
         {
           "methodName": "getEmail",
-          "datatype": "String",
-          "Access": "public"
+          "datatype": "string",
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "getTelNo",
           "datatype": "int",
-          "Access": "public"
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "setName",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "name",
-              "datatype": "String"
+              "datatype": "string"
             }
           ]
         },
@@ -70,10 +76,11 @@
           "methodName": "setLastName",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "LastName",
-              "datatype": "String"
+              "datatype": "string"
             }
           ]
         },
@@ -81,10 +88,11 @@
           "methodName": "setSex",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "sex",
-              "datatype": "String"
+              "datatype": "string"
             }
           ]
         },
@@ -92,10 +100,11 @@
           "methodName": "setEmail",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "email",
-              "datatype": "String"
+              "datatype": "string"
             }
           ]
         },
@@ -103,6 +112,7 @@
           "methodName": "setTelNo",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "telNo",
@@ -122,7 +132,7 @@
         },
         {
           "AttributeName": "course",
-          "datatype": "String",
+          "datatype": "string",
           "Access": "private"
         },
         {
@@ -135,22 +145,26 @@
         {
           "methodName": "getStudentNo",
           "datatype": "int",
-          "Access": "public"
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "getCourse",
-          "datatype": "String",
-          "Access": "public"
+          "datatype": "string",
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "getBachelors",
           "datatype": "boolean",
-          "Access": "public"
+          "Access": "public",
+          "static": "false"
         },
         {
           "methodName": "setStudentNo",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "studentNo",
@@ -162,10 +176,11 @@
           "methodName": "setCourse",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "course",
-              "datatype": "String"
+              "datatype": "string"
             }
           ]
         },
@@ -173,6 +188,7 @@
           "methodName": "setBachelors",
           "datatype": "void",
           "Access": "public",
+          "static": "false",
           "Parameters": [
             {
               "name": "bachelors",
