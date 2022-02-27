@@ -23,7 +23,15 @@ class Py(IGenerator):
     def __init__(self, diagram_type: str, elements: dict) -> None:
         self.elements = elements
         self._diagram_type = diagram_type
-        self.class_name = self.__capitalize_first(self.elements['class'])
+        self.class_name = self._capitalize_first(self.elements['class'])
+
+    @staticmethod
+    def _generate_module(path):
+        try:
+            with open(f'{path}/__init__.py', 'w') as file:
+                file.write("")
+        except FileNotFoundError():
+            print("specified path does not exist")
 
     def generate_document(self, generated_code: str, path: str = None) -> None:
         """"
@@ -35,7 +43,8 @@ class Py(IGenerator):
             with open(f'{path}/{self.class_name}.py', 'w') as file:
                 file.write(generated_code)
         else:
-            os.mkdir(path)
+            self._generate_directory(path)
+            self._generate_module(path)
             with open(f'{path}/{self.class_name}.py', 'w') as file:
                 file.write(generated_code)
 
@@ -93,12 +102,6 @@ class Py(IGenerator):
 
         return string_methods
 
-    @staticmethod
-    def __capitalize_first(input_value: str) -> str:
-        return_value = input_value[0].upper()
-        return_value += input_value[1:].lower()
-        return return_value
-
     def __parse_datatype(self, input_type: str) -> str:
         if input_type == "String":
             return self._primitive_string
@@ -110,5 +113,3 @@ class Py(IGenerator):
             return self._primitive_float
         if "[]" in input_type:
             return self._primitive_array
-        # if input_type == :
-        #     return self.primitive_object
