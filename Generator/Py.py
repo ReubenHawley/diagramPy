@@ -15,23 +15,12 @@ class Py(IGenerator):
     _primitive_float: str = "float"
     _primitive_array: str = "list"
     _primitive_object: str = "object"
+    _primitive_boolean: str = "bool"
     _primitive_void: str = "None"
     _private_prefix: str = "_"
     _protected_prefix: str = "__"
     _public_prefix: str = ""
-
-    def __init__(self, diagram_type: str, elements: dict) -> None:
-        self.elements = elements
-        self._diagram_type = diagram_type
-        self.class_name = self._capitalize_first(self.elements['class'])
-
-    @staticmethod
-    def _generate_module(path):
-        try:
-            with open(f'{path}/__init__.py', 'w') as file:
-                file.write("")
-        except FileNotFoundError():
-            print("specified path does not exist")
+    _extension = ".py"
 
     def generate_document(self, generated_code: str, path: str = None) -> None:
         """"
@@ -40,13 +29,21 @@ class Py(IGenerator):
         if path is None:
             path = os.path.join(os.getcwd(), f"{self._diagram_type}_diagram")
         if os.path.exists(path):
-            with open(f'{path}/{self.class_name}.py', 'w') as file:
+            with open(f'{path}/{self.class_name}{self._extension}', 'w') as file:
                 file.write(generated_code)
         else:
             self._generate_directory(path)
             self._generate_module(path)
-            with open(f'{path}/{self.class_name}.py', 'w') as file:
+            with open(f'{path}/{self.class_name}{self._extension}', 'w') as file:
                 file.write(generated_code)
+
+    @staticmethod
+    def _generate_module(path):
+        try:
+            with open(f'{path}/__init__.py', 'w') as file:
+                file.write("")
+        except FileNotFoundError():
+            print("specified path does not exist")
 
     def generate_class(self) -> str:
         """"
@@ -61,7 +58,7 @@ class Py(IGenerator):
         """
         string_atters = ""
         for atter in self.elements["attributes"]:
-            parsed_datatype = self.__parse_datatype(atter['datatype'])
+            parsed_datatype = self._parse_datatype(atter['datatype'])
             string_atters += f"\t"
             if atter["Access"] == "private":
                 string_atters += self._private_prefix
@@ -95,21 +92,9 @@ class Py(IGenerator):
 
             if "Parameters" in method:
                 for parameter in method["Parameters"]:
-                    parameter_type = self.__parse_datatype(parameter["datatype"])
+                    parameter_type = self._parse_datatype(parameter["datatype"])
                     string_methods += f", {parameter['name'].lower()}: {parameter_type}"
-            return_datatype = self.__parse_datatype(method['datatype'])
+            return_datatype = self._parse_datatype(method['datatype'])
             string_methods += f") -> {return_datatype}:\n\t\tpass\n\n"
 
         return string_methods
-
-    def __parse_datatype(self, input_type: str) -> str:
-        if input_type == "String":
-            return self._primitive_string
-        if input_type == "Integer":
-            return self._primitive_int
-        if input_type == "Double":
-            return self._primitive_double
-        if input_type == "Float":
-            return self._primitive_float
-        if "[]" in input_type:
-            return self._primitive_array
