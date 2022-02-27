@@ -37,16 +37,24 @@ class Constructor:
         """
 
         if self.language == "java":
-            generated_code = Java(self.elements)
+            for group in self.elements:
+                constructor = Java("class", group)
+                generated_code = constructor.generate_class()
+                generated_code += constructor.generate_attributes()
+                generated_code += constructor.generate_methods()
+                generated_code += constructor.close_class()
+                constructor.generate_document(generated_code=generated_code)
+
+                print("success")
         elif self.language == "csharp":
-            generated_code = CSharp(self.elements)
+            constructor = CSharp(self.elements)
         elif self.language == "python":
             for group in self.elements:
                 constructor = Py("class", group)
                 generated_code = constructor.generate_class()
                 generated_code += constructor.generate_attributes()
                 generated_code += constructor.generate_methods()
-                constructor.generate_document(generated_code=generated_code, path="uglydiagrams/")
+                constructor.generate_document(generated_code=generated_code)
                 print("success")
 
 
