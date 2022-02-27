@@ -5,6 +5,10 @@ class Java(IGenerator):
     """"
     Generator for the Java code, parent of IGenerator and child of Constructor Class
     """
+    elements: dict
+
+    def __init__(self, elements: dict) -> None:
+        self.elements = elements
 
     def generate_document(self):
         """"
