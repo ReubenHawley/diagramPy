@@ -1,0 +1,186 @@
+{
+  "root": [
+    {
+      "class": "person",
+      "attributes": [
+        {
+          "name": "name",
+          "datatype": "String",
+          "Access": "private"
+        },
+        {
+          "name": "lastname",
+          "datatype": "String",
+          "Access": "private"
+        },
+        {
+          "name": "sex",
+          "datatype": "String",
+          "Access": "private"
+        },
+        {
+          "name": "emailAddress",
+          "datatype": "String",
+          "Access": "private"
+        },
+        {
+          "name": "telephonenumber",
+          "datatype": "int",
+          "Access": "private"
+        }
+      ],
+      "methods": [
+        {
+          "methodName": "getName",
+          "datatype": "String",
+          "Access": "public"
+        },
+        {
+          "methodName": "getLastName",
+          "datatype": "String",
+          "Access": "public"
+        },
+        {
+          "methodName": "getSex",
+          "datatype": "String",
+          "Access": "public"
+        },
+        {
+          "methodName": "getEmail",
+          "datatype": "String",
+          "Access": "public"
+        },
+        {
+          "methodName": "getTelNo",
+          "datatype": "int",
+          "Access": "public"
+        },
+        {
+          "methodName": "setName",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "name",
+              "datatype": "String"
+            }
+          ]
+        },
+        {
+          "methodName": "setLastName",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "LastName",
+              "datatype": "String"
+            }
+          ]
+        },
+        {
+          "methodName": "setSex",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "sex",
+              "datatype": "String"
+            }
+          ]
+        },
+        {
+          "methodName": "setEmail",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "email",
+              "datatype": "String"
+            }
+          ]
+        },
+        {
+          "methodName": "setTelNo",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "telNo",
+              "datatype": "int"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "student",
+      "attributes": [
+        {
+          "AttributeName": "studentNo",
+          "datatype": "int",
+          "Access": "private"
+        },
+        {
+          "AttributeName": "course",
+          "datatype": "String",
+          "Access": "private"
+        },
+        {
+          "AttributeName": "bachelors",
+          "datatype": "boolean",
+          "Access": "private"
+        }
+      ],
+      "methods": [
+        {
+          "methodName": "getStudentNo",
+          "datatype": "int",
+          "Access": "public"
+        },
+        {
+          "methodName": "getCourse",
+          "datatype": "String",
+          "Access": "public"
+        },
+        {
+          "methodName": "getBachelors",
+          "datatype": "boolean",
+          "Access": "public"
+        },
+        {
+          "methodName": "setStudentNo",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "studentNo",
+              "datatype": "int"
+            }
+          ]
+        },
+        {
+          "methodName": "setCourse",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "course",
+              "datatype": "String"
+            }
+          ]
+        },
+        {
+          "methodName": "setBachelors",
+          "datatype": "void",
+          "Access": "public",
+          "Parameters": [
+            {
+              "name": "bachelors",
+              "datatype": "boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
