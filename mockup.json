@@ -4,27 +4,27 @@
       "class": "person",
       "attributes": [
         {
-          "name": "name",
+          "AttributeName": "name",
           "datatype": "String",
           "Access": "private"
         },
         {
-          "name": "lastname",
+          "AttributeName": "lastname",
+          "datatype": "String",
+          "Access": "protected"
+        },
+        {
+          "AttributeName": "sex",
+          "datatype": "String",
+          "Access": "protected"
+        },
+        {
+          "AttributeName": "emailAddress",
           "datatype": "String",
           "Access": "private"
         },
         {
-          "name": "sex",
-          "datatype": "String",
-          "Access": "private"
-        },
-        {
-          "name": "emailAddress",
-          "datatype": "String",
-          "Access": "private"
-        },
-        {
-          "name": "telephonenumber",
+          "AttributeName": "telephonenumber",
           "datatype": "int",
           "Access": "private"
         }
@@ -38,12 +38,12 @@
         {
           "methodName": "getLastName",
           "datatype": "String",
-          "Access": "public"
+          "Access": "protected"
         },
         {
           "methodName": "getSex",
           "datatype": "String",
-          "Access": "public"
+          "Access": "private"
         },
         {
           "methodName": "getEmail",

@@ -7,7 +7,7 @@ class IGenerator(ABC):
     """
 
     @abstractmethod
-    def generate_document(self):
+    def generate_document(self, path: str, generated_code: str):
         """"
         Create the documents
         """
