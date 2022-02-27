@@ -138,5 +138,4 @@ if __name__ == '__main__':
         data = json.loads(f.read())
     constructor = Constructor(elements=data["root"])
     f.close()
-    constructor.define_language()
     constructor.construct()
