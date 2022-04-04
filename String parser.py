@@ -2,6 +2,8 @@
 A string parser for drawio xml files
 """
 import re
+import json
+import xmltodict
 
 
 class Diagram:
@@ -15,6 +17,15 @@ class Diagram:
 
     def __init__(self, source: str):
         self.source = source
+
+    def xml_parser(self) -> dict:
+        # open the input xml file and read
+        # data in form of python dictionary
+        # using xmltodict module
+        with open(self.source) as xml_file:
+            data_dict = xmltodict.parse(xml_file.read())
+            xml_file.close()
+        return data_dict
 
     def find_elements(self) -> list:
         """
