@@ -6,7 +6,7 @@ import json
 import xmltodict
 
 
-class Diagram:
+class DiagramSerializer:
     """"
     Diagram is the master class that all child classes will inherit from
     """
