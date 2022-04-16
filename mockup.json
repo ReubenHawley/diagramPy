@@ -1,6 +1,8 @@
 {
+  "Id": "WIyWlLk6GJQsqaUBKTNV-1",
   "root": [
     {
+      "Id": "zkfFHV4jXpPFQw0GAbJ--0",
       "class": "person",
       "attributes": [
         {
@@ -123,6 +125,7 @@
       ]
     },
     {
+      "Id": "zkfFHV4jXpPFQw0GAbJ--6",
       "class": "student",
       "attributes": [
         {
