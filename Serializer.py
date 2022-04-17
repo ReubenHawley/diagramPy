@@ -1,8 +1,8 @@
 """"
 A string parser for drawio xml files
 """
-import re
 import json
+import os
 from pprint import pprint
 
 import xmltodict
@@ -14,15 +14,16 @@ class DiagramSerializer:
     """
     source: str
     elements: list
-    element_pattern: str = r"<mxCell[^<>]+>"
-    Attribute_pattern: str = r"(\w+)=(\"?)\w+\-\-w+(\"?)"
     json_file: dict = {"root": []}
 
     def __init__(self, source: str):
         self.source = source
+        self.cwd = os.getcwd()
         self.xml_elements: str = ""
         self.xml_parser()
         self.get_root()
+        self.get_classes()
+        self.get_props()
 
     def xml_parser(self) -> dict:
         # open the input xml file and read
@@ -66,51 +67,85 @@ class DiagramSerializer:
         self.json_file["root"] = class_list
         return self.json_file
 
-    def get_props(self) -> dict:
-        for diagramclass in self.xml_elements:
-            for class_name in self.json_file["root"]:
-                if class_name["Id"] == diagramclass["@parent"]:
-                    if diagramclass["@value"] != "":
-                        if "()" in diagramclass["@value"]:
-                            print(class_name["Id"])
-                            print(diagramclass["@parent"])
-                            pprint(diagramclass["@value"])
-                # pprint(self.xml_elements)
-        return self.json_file
+    def get_props(self):
+        counter = 0
+        for class_name in self.json_file["root"]:
+            methods = []
+            attributes = []
+            for diagramclass in self.xml_elements:
+                try:
+                    if class_name["Id"] == diagramclass["@parent"]:
+                        if diagramclass["@value"] != "":
+                            if "()" in diagramclass["@value"]:
+                                methods.append(self.map_methods(diagramclass["@value"]))
+                            else:
+                                attributes.append(self.map_attributes(diagramclass["@value"]))
+                except Exception:
+                    print(" Failed to map methods and attributes, please check syntax")
+            # mapping directly causes a nested list, using the list comprehension we escape this
+            [self.json_file["root"][counter]["attributes"].append(atter) for atter in attributes]
+            [self.json_file["root"][counter]["methods"].append(method_defintion) for method_defintion in methods]
+            counter += 1
 
-    @staticmethod
-    def map_methods(value_to_map) -> dict:
-        access = ""
-        MethodName = ""
-        Datatype = ""
-        Static = None
+    def map_methods(self, value_to_map: str) -> dict:
 
-        # map the method Name
-        MethodName = value_to_map
+        access, methodName, datatype = self.split(value_to_map)
+        Static = "false"
 
-        # map the datatype
-        Datatype = value_to_map
+        # parse methodName for user errors
+        methodName = methodName.strip("():")
 
         # map the access modifiers
-        if value_to_map[0] == ["-"]:
-            access = "private"
-        elif value_to_map[0] == ["+"]:
-            access = "public"
-        elif value_to_map[0] == ["~"]:
-            access = "protected"
+        access = self.map_access(access)
 
-        # map the methodtype
-        Static = False
-        class_methods = {"methodName": "getName",
-                         "datatype": "void",
+        datatype = datatype.lower()
+        # create dictionary of method attributes
+        class_methods = {"methodName": methodName,
+                         "datatype": datatype,
                          "Access": access,
                          "static": Static}
         return class_methods
 
+    def map_attributes(self, value_to_map: str) -> dict:
 
-if __name__ == '__main__':
-    diagram = DiagramSerializer(source="test(xml).xml")
-    # print(diagram.json_file)
-    diagram.get_classes()
-    diagram.get_props()
-    # pprint(diagram.json_file)
+        access, attributeName, datatype = self.split(value_to_map)
+
+        datatype = datatype.lower()
+        # map access
+        access = self.map_access(access)
+
+        if ":" in attributeName:
+            attributeName = attributeName.strip(":")
+
+        # create dictionary of method attributes
+        class_methods = {"AttributeName": attributeName,
+                         "datatype": datatype,
+                         "Access": access}
+        return class_methods
+
+    @staticmethod
+    def map_access(access_modifier: str) -> str:
+        access = ""
+        if "-" in access_modifier:
+            access = "private"
+        elif "+" in access_modifier:
+            access = "public"
+        elif "~" in access_modifier:
+            access = "protected"
+        return access
+
+    @staticmethod
+    def split(value: str) -> list:
+        return_value = value.split(" ")
+        return return_value
+
+    def dump(self, path=None):
+        if path is None:
+            path = self.cwd
+        # Serializing json
+        json_object = json.dumps(self.json_file, indent=4)
+
+        source = self.source.strip(".xml")
+        # Writing to sample.json
+        with open(f"{path}\{source}.json", "w") as outfile:
+            outfile.write(json_object)
